@@ -1,5 +1,6 @@
 package died.guia06;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,9 +46,16 @@ public class Curso {
 	 * @param a
 	 * @return
 	 */
+	
 	public Boolean inscribir(Alumno a) {
 		
-		//
+		if ((a.creditosObtenidos() == this.creditosRequeridos) && (this.cupo != 0) && (((a.cursandoDeAnioLectivoX(this.cicloLectivo)).size()) < 3)) {
+			
+			this.inscriptos.add(a);
+			a.inscripcionAceptada(this);		
+		
+		
+		//	INICIO -- PARTE DE AGREGARSE AL LOG
 		try {
 		log.registrar(this, "inscribir ",a.toString());
 		}
@@ -56,10 +64,17 @@ public class Curso {
 			System.out.println("Ocurrió una excepción de E/S");
 						
 		}
+		//  FIN -- PARTE DE AGREGARSE AL LOG
+		
+		return true;
+		
+		}
+		else {
+		
 		return false;
 	}
 	
-	
+		}
 	/**
 	 * imprime los inscriptos en orden alfabetico
 	 */
@@ -75,6 +90,92 @@ public class Curso {
 			
 		}
 	}
+	
+	
+	
+	
 
+	//getters and setters
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public Integer getCicloLectivo() {
+		return cicloLectivo;
+	}
+
+
+	public void setCicloLectivo(Integer cicloLectivo) {
+		this.cicloLectivo = cicloLectivo;
+	}
+
+
+	public Integer getCupo() {
+		return cupo;
+	}
+
+
+	public void setCupo(Integer cupo) {
+		this.cupo = cupo;
+	}
+
+
+	public List<Alumno> getInscriptos() {
+		return inscriptos;
+	}
+
+
+	public void setInscriptos(List<Alumno> inscriptos) {
+		this.inscriptos = inscriptos;
+	}
+
+
+	public Integer getCreditos() {
+		return creditos;
+	}
+
+
+	public void setCreditos(Integer creditos) {
+		this.creditos = creditos;
+	}
+
+
+	public Integer getCreditosRequeridos() {
+		return creditosRequeridos;
+	}
+
+
+	public void setCreditosRequeridos(Integer creditosRequeridos) {
+		this.creditosRequeridos = creditosRequeridos;
+	}
+
+
+	public Registro getLog() {
+		return log;
+	}
+
+
+	public void setLog(Registro log) {
+		this.log = log;
+	}
+
+	//Fin_getters and setters
+	
 
 }
