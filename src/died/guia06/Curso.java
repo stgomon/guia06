@@ -46,7 +46,16 @@ public class Curso {
 	 * @return
 	 */
 	public Boolean inscribir(Alumno a) {
+		
+		//
+		try {
 		log.registrar(this, "inscribir ",a.toString());
+		}
+		catch (IOException excepcionEnRegistrar){
+			
+			System.out.println("Ocurrió una excepción de E/S");
+						
+		}
 		return false;
 	}
 	
@@ -55,7 +64,16 @@ public class Curso {
 	 * imprime los inscriptos en orden alfabetico
 	 */
 	public void imprimirInscriptos() {
+		
+		//
+		try {
 		log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
+		}
+		catch (IOException excepcionEnRegistrar) {
+			
+			System.out.println("Ocurrió una excepción de E/S");
+			
+		}
 	}
 
 
