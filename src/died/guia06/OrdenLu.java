@@ -4,10 +4,6 @@ import java.util.Comparator;
 
 public class OrdenLu implements Comparator<Alumno> {
 	
-	public OrdenLu(){
-		
-	}
-	
 	@Override
 	public int compare(Alumno alumno1 , Alumno alumno2) {
 		

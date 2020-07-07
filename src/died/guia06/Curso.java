@@ -95,13 +95,19 @@ public class Curso {
 		try {
 			if (palabra.equals("creditos")) {
 				Collections.sort(this.inscriptos, new OrdenCreditos());
-				System.out.println("Inscriptos ordenados por creditos obtenidos: " + this.inscriptos);
+				System.out.println("Inscriptos ordenados por creditos obtenidos: ");
+				for (int i = 0 ; i < this.inscriptos.size() ; i++) {
+					System.out.println((this.inscriptos.get(i)).creditosObtenidos());
+				}
 				log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");		//LOG
 				return;
 			}
 			if (palabra.equals("libreta")) {
 				Collections.sort(this.inscriptos, new OrdenLu());
-				System.out.println("Inscriptos ordenados por libreta universitaria: " + this.inscriptos);		
+				System.out.println("Inscriptos ordenados por libreta universitaria: ");
+				for (int i = 0 ; i < this.inscriptos.size() ; i++) {
+					System.out.println((this.inscriptos.get(i)).getNroLibreta());
+				}
 				log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");		//LOG
 				return;
 			}
