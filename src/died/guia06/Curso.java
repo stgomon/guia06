@@ -3,6 +3,8 @@ package died.guia06;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 
 import died.guia06.util.Registro;
 
@@ -40,7 +42,8 @@ public class Curso {
 		this.cupo = unCupo;
 		this.creditos = nroCreditos;
 		this.creditosRequeridos = nroCreditosRequeridos;
-		
+		this.inscriptos = new ArrayList<Alumno>();
+		this.log = new Registro();
 	}
 
 	/**
@@ -58,9 +61,10 @@ public class Curso {
 	 */
 	
 	public Boolean inscribir(Alumno a) {
-		if ((a.creditosObtenidos() == this.creditosRequeridos) && (this.cupo != 0) && (((a.cursandoDeAnioLectivoX(this.cicloLectivo)).size()) < 3)) {			
+		if ((a.creditosObtenidos() >= this.creditosRequeridos) && (this.cupo != 0) && (((a.cursandoDeAnioLectivoX(this.cicloLectivo)).size()) < 3)) {			
 			this.inscriptos.add(a);
-			a.inscripcionAceptada(this);		
+			a.inscripcionAceptada(this);
+			this.cupo = (this.cupo) - 1;
 			
 		//	INICIO -- PARTE DE AGREGARSE AL LOG
 		try {
@@ -76,7 +80,7 @@ public class Curso {
 		else {
 		return false;
 	}
-		}
+	}
 	
 	
 	
@@ -84,13 +88,30 @@ public class Curso {
 	/**
 	 * imprime los inscriptos en orden alfabetico
 	 */
-	public void imprimirInscriptos() {
+	public void imprimirInscriptos(String palabra) {
 		
-		//
+		//si se ingresa el String creditos o libreta, imprimirá la lista de incriptos al curso ordenados segun se eligió
+		
 		try {
-		log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
+			if (palabra.equals("creditos")) {
+				Collections.sort(this.inscriptos, new OrdenCreditos());
+				System.out.println("Inscriptos ordenados por creditos obtenidos: " + this.inscriptos);
+				log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");		//LOG
+				return;
+			}
+			if (palabra.equals("libreta")) {
+				Collections.sort(this.inscriptos, new OrdenLu());
+				System.out.println("Inscriptos ordenados por libreta universitaria: " + this.inscriptos);		
+				log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");		//LOG
+				return;
+			}
+			
+			System.out.println("No ha seleccionado una opción válida");
+			return ;
 		}
-		catch (IOException excepcionEnRegistrar) {
+			
+	
+			catch (IOException excepcionEnRegistrar) {
 			System.out.println("Ocurrió una excepción de E/S");
 		}
 	}
