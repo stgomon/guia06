@@ -32,6 +32,16 @@ public class Curso {
 		this.log = new Registro();
 	}
 	
+	public Curso(Integer unId, String unNombre, Integer unCicloLectivo, Integer unCupo, Integer nroCreditos, Integer nroCreditosRequeridos) {
+		
+		this.id = unId;
+		this.nombre = unNombre;
+		this.cicloLectivo = unCicloLectivo;
+		this.cupo = unCupo;
+		this.creditos = nroCreditos;
+		this.creditosRequeridos = nroCreditosRequeridos;
+		
+	}
 
 	/**
 	 * Este m√©todo, verifica si el alumno se puede inscribir y si es as√≠ lo agrega al curso,
@@ -48,33 +58,29 @@ public class Curso {
 	 */
 	
 	public Boolean inscribir(Alumno a) {
-		
-		if ((a.creditosObtenidos() == this.creditosRequeridos) && (this.cupo != 0) && (((a.cursandoDeAnioLectivoX(this.cicloLectivo)).size()) < 3)) {
-			
+		if ((a.creditosObtenidos() == this.creditosRequeridos) && (this.cupo != 0) && (((a.cursandoDeAnioLectivoX(this.cicloLectivo)).size()) < 3)) {			
 			this.inscriptos.add(a);
 			a.inscripcionAceptada(this);		
-		
-		
+			
 		//	INICIO -- PARTE DE AGREGARSE AL LOG
 		try {
 		log.registrar(this, "inscribir ",a.toString());
 		}
 		catch (IOException excepcionEnRegistrar){
-			
 			System.out.println("OcurriÛ una excepciÛn de E/S");
-						
 		}
 		//  FIN -- PARTE DE AGREGARSE AL LOG
 		
 		return true;
-		
 		}
 		else {
-		
 		return false;
 	}
-	
 		}
+	
+	
+	
+	
 	/**
 	 * imprime los inscriptos en orden alfabetico
 	 */
@@ -85,9 +91,7 @@ public class Curso {
 		log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
 		}
 		catch (IOException excepcionEnRegistrar) {
-			
 			System.out.println("OcurriÛ una excepciÛn de E/S");
-			
 		}
 	}
 	
@@ -95,7 +99,8 @@ public class Curso {
 	
 	
 
-	//getters and setters
+//getters and setters
+	
 	public Integer getId() {
 		return id;
 	}
@@ -174,8 +179,4 @@ public class Curso {
 	public void setLog(Registro log) {
 		this.log = log;
 	}
-
-	//Fin_getters and setters
-	
-
 }
